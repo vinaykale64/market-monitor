@@ -34,7 +34,7 @@ def stock_chart(stock_object, period, kind='interactive'):
     )
 
     fig.update_layout(title=plot_title,
-                      #xaxis_title='Date',
+                      hovermode="x",
                       yaxis_title='Closing Price',
                       template='plotly_dark',
                       xaxis_showgrid=False,
