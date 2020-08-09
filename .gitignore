@@ -9,6 +9,7 @@ __pycache__/
 # Personally Added
 .DS_Store
 .idea/
+*.pyc
 
 # Distribution / packaging
 .Python
