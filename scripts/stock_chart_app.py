@@ -11,18 +11,31 @@ external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
 period_list = ['1d', '1mo', '3mo', '1y', '2y', '5y', '10y', 'ytd', 'max']
+colors = {
+    'background': '#FFFFFF',
+    'text': '#000000'
+}
 
-app.layout = html.Div([
-    html.H6("STOCK INFO VISUALIZER DEMO"),
-    html.Div(["Stock Ticker Symbol: ",
-              dcc.Input(id='ticker', value='AAPL', type='text')]),
-    html.Div(["Time Period: ",
+app.layout = html.Div(style={'backgroundColor': colors['background']}, children=[
+    html.H4("STOCK INFO VISUALIZER DEMO",
+            style={'textAlign': 'center', 'color': colors['text']}
+            ),
+    html.Div(["Stock Ticker ",
+              dcc.Input(id='ticker', value='AAPL', type='text')
+            ], style={'color': colors['text'], 'textAlign': 'center'}),
+    html.Br(),
+    html.Div(["Time Period",
               dcc.Dropdown(
                   id='period',
                   options=[{'label': i, 'value': i} for i in period_list],
                   value='3mo'
               )
-            ]),
+            ], style={'width': '20%',
+                      'color': colors['text'],
+                      'textAlign': 'left',
+                      'align-items': 'center',
+                      'padding-left':'40%',
+                      }),
     html.Br(),
     dcc.Graph(id='stock-chart'),
 
@@ -39,6 +52,11 @@ def update_figure(ticker, period):
 
     obj = yf.Ticker(ticker)
     fig = stock_chart(stock_object=obj, period=period)
+    fig.update_layout(
+        plot_bgcolor=colors['background'],
+        paper_bgcolor=colors['background'],
+        font_color=colors['text']
+    )
     return fig
 
 if __name__ == '__main__':
