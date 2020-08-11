@@ -5,11 +5,12 @@ from dash.dependencies import Input, Output
 import json
 
 import yfinance as yf
-from functions import stock_chart
+from scripts.functions import stock_chart
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+server = app.server
 
 period_list = ['1d', '1mo', '3mo', '1y', '2y', '5y', '10y', 'ytd', 'max']
 colors = {
