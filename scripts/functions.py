@@ -1,7 +1,7 @@
 import plotly.graph_objects as go
 
 
-def stock_chart(stock_object, period, kind='interactive'):
+def stock_chart(stock_object, period):
     period_list = ['1d', '1mo', '3mo', '1y', '2y', '5y', '10y', 'ytd', 'max']
     if period not in period_list:
         raise KeyError("Incorrect period specified. Allowed list: "
@@ -42,9 +42,4 @@ def stock_chart(stock_object, period, kind='interactive'):
                       yaxis_showgrid=False
                       )
 
-    if kind == 'interactive':
-        #fig.show()
-        return fig
-    if kind == 'static':
-        #fig.show("png")
-        return fig
+    return fig
