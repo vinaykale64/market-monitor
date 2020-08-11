@@ -2,10 +2,10 @@ import dash
 import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
-import json
 
 import yfinance as yf
 from scripts.functions import stock_chart
+import json
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
@@ -19,16 +19,16 @@ colors = {
 }
 
 app.layout = html.Div(style={'backgroundColor': colors['background']}, children=[
-    html.H4("STOCK INFO VISUALIZER DEMO",
+    html.H4("STOCK INFO VISUALIZER",
             style={'textAlign': 'center', 'color': colors['text']}
             ),
-    html.Div(["Stock Ticker ",
+    html.Div(["Enter Stock Ticker Symbol ",
               dcc.Input(id='ticker', value='AAPL', type='text')
               ],
              style={'color': colors['text'], 'textAlign': 'center'}
              ),
     html.Br(),
-    html.Div(["Time Period",
+    html.Div(["Select Time Period",
               dcc.Dropdown(
                   id='period',
                   options=[{'label': i, 'value': i} for i in period_list],
@@ -40,8 +40,8 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
                       'align-items': 'center',
                       'padding-left':'40%',
                       }),
+    html.Div(id='hover-data', style={'color': colors['text'], 'fontSize': 32, 'padding-left':'5%'}),
     dcc.Graph(id='stock-chart'),
-    html.Div(id='hover-data', style={'color': colors['text'], 'textAlign': 'center'}),
 
 ])
 
@@ -68,9 +68,10 @@ def update_figure(ticker, period):
     [Input('stock-chart', 'hoverData')])
 def display_hover_data(hoverData):
     if hoverData is None:
-        return ''
+        return '_'
     else:
-        return 'PRICE {} at {}'.format(hoverData['points'][0]['y'], hoverData['points'][0]['x'])
+        return '{}'.format(hoverData['points'][0]['y'], hoverData['points'][0]['x'])
+
 
 if __name__ == '__main__':
     app.run_server(debug=True)
