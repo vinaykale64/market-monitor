@@ -3,6 +3,7 @@ import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
 
+import json
 import yfinance as yf
 from scripts.functions import stock_chart, options_table
 
@@ -157,12 +158,20 @@ def update_table(ticker, date, kind):
     return fig
 
 
-@app.callback(Output("hover-data", "children"), [Input("stock-chart", "hoverData")])
-def display_hover_data(hoverData):
+@app.callback(Output("hover-data", "children"),
+              [Input("stock-chart", "hoverData"),
+               Input("stock-chart", "figure"),
+               Input("ticker", "value")]
+             )
+
+def display_hover_data(hoverData, figure, ticker):
+
+    obj = yf.Ticker(ticker)
+
     if hoverData is None:
-        return "_"
+        return obj.ticker + ' ' + str(figure['data'][0]['y'][-1])
     else:
-        return "{}".format(hoverData["points"][0]["y"], hoverData["points"][0]["x"])
+        return "{} {}".format(obj.ticker, hoverData["points"][0]["y"])
 
 
 if __name__ == "__main__":
