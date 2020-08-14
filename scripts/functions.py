@@ -1,4 +1,5 @@
 import plotly.graph_objects as go
+import finviz
 
 
 def stock_chart(stock_object, period):
@@ -170,3 +171,34 @@ def options_table(stock_object, date=None, kind="calls"):
     )
 
     return fig
+
+
+def get_news_markdown(ticker_symbol, count):
+    """
+    Returns a markdown text string which has `count` top news sources.
+
+    Parameters
+    ----------
+
+    ticker_symbol: str
+        Stock Ticker Sumbol Value
+
+    count: int
+        Number of news items to return
+
+    Returns
+    -------
+
+    joined_str: str
+        String containing markdown news sources
+
+    """
+    news = finviz.get_news(ticker_symbol)[:count]
+    joined_str = ''
+    i = 1
+    for news_item in news:
+        title = news_item[0]
+        url = news_item[1]
+        joined_str += str(i)+'. [' + title + '](' + url + ')\n'
+        i += 1
+    return joined_str

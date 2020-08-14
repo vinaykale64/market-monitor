@@ -5,7 +5,8 @@ from dash.dependencies import Input, Output
 
 import json
 import yfinance as yf
-from scripts.functions import stock_chart, options_table
+import finviz
+from scripts.functions import stock_chart, options_table, get_news_markdown
 
 external_stylesheets = ["https://codepen.io/chriddyp/pen/bWLwgP.css"]
 
@@ -97,6 +98,15 @@ app.layout = html.Div(
             style={"textAlign": "center"},
         ),
         dcc.Graph(id="options-table"),
+        html.H5(
+            "Recent News", style={"textAlign": "center", "color": colors["text"]},
+        ),
+        html.Br(),
+        dcc.Markdown(
+            id='news-markdown',
+            style={"white-space": "pre", "padding-left": "5%"}
+        ),
+        html.Br(),
         dcc.Markdown(
         """
         [Github Repo](https://github.com/vinaykale64/stocks_visualizer). Feel free to contribute !
@@ -171,11 +181,18 @@ def update_table(ticker, date, kind):
 def display_hover_data(hoverData, figure, ticker):
 
     obj = yf.Ticker(ticker)
-
     if hoverData is None:
         return obj.ticker + ' ' + str(figure['data'][0]['y'][-1])
     else:
         return "{} {}".format(obj.ticker, hoverData["points"][0]["y"])
+
+
+@app.callback(Output("news-markdown", "children"),
+              [Input("ticker", "value")]
+             )
+
+def return_news(ticker):
+    return get_news_markdown(ticker, 10)
 
 
 if __name__ == "__main__":
