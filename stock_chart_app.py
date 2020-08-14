@@ -18,7 +18,7 @@ colors = {"background": "#FFFFFF", "text": "#000000"}
 app.layout = html.Div(
     style={"backgroundColor": colors["background"]},
     children=[
-        html.H4(
+        html.H2(
             "STOCK INFO VISUALIZER",
             style={"textAlign": "center", "color": colors["text"]},
         ),
