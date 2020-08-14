@@ -49,7 +49,7 @@ app.layout = html.Div(
         ),
         html.Div(
             id="hover-data",
-            style={"color": colors["text"], "fontSize": 32, "padding-left": "5%",},
+            style={"color": colors["text"], "fontSize": 28, "padding-left": "5%", "font-weight": "bold"},
         ),
         html.Div(
             [html.P("(Hover over the graph to get precise info)")],
@@ -98,13 +98,12 @@ app.layout = html.Div(
         ),
         dcc.Graph(id="options-table"),
         dcc.Markdown(
-            """
-        Created by [Vinay Kale](https://vinaykale64.github.io/)    
-        Github Repo [Link](https://github.com/vinaykale64/stocks_visualizer)   
-        Tools Used: [Plotly](https://plotly.com/), [Dash](https://plotly.com/dash/), [Heroku](https://www.heroku.com)    
-        Reach out to contribute !
         """
+        [Github Repo](https://github.com/vinaykale64/stocks_visualizer). Feel free to contribute !
+        """,
+            style={"textAlign": "center"}
         ),
+        html.Br(),
     ],
 )
 
