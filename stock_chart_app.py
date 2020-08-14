@@ -52,19 +52,52 @@ app.layout = html.Div(
         ),
         dcc.Graph(id="stock-chart"),
         html.Br(),
-        dcc.Dropdown(id='dates-dropdown'),
+        html.Div(
+                    [
+                        "Select Options Date",
+                        dcc.Dropdown(id="options-dates-dropdown"),
+                    ],
+                    style={
+                        "width": "20%",
+                        "color": colors["text"],
+                        "textAlign": "left",
+                        "align-items": "center",
+                        "padding-left": "40%",
+                    },
+                ),
+        html.Div(
+                    [
+                        "Select Options Kind",
+                        dcc.Dropdown(
+                            id='options-kind-dropdown',
+                            options=[
+                                {'label': 'Calls', 'value': 'calls'},
+                                {'label': 'Puts', 'value': 'puts'}
+                            ],
+                            value='calls'
+                        )
+                    ],
+                    style={
+                        "width": "20%",
+                        "color": colors["text"],
+                        "textAlign": "left",
+                        "align-items": "center",
+                        "padding-left": "40%",
+                    },
+                ),
+        dcc.Graph(id="options-table"),
     ],
 )
 
 @app.callback(
-    dash.dependencies.Output('dates-dropdown', 'options'),
+    dash.dependencies.Output('options-dates-dropdown', 'options'),
     [dash.dependencies.Input('ticker', 'value')])
 def get_possible_dates(ticker):
     obj = yf.Ticker(ticker)
     return [{'label': i, 'value': i} for i in obj.options]
 
 @app.callback(
-    dash.dependencies.Output('dates-dropdown', 'value'),
+    dash.dependencies.Output('options-dates-dropdown', 'value'),
     [dash.dependencies.Input('ticker', 'value')])
 def get_default_dates(ticker):
     obj = yf.Ticker(ticker)
@@ -84,6 +117,25 @@ def update_figure(ticker, period):
         paper_bgcolor=colors["background"],
         font_color=colors["text"],
     )
+    return fig
+
+
+@app.callback(
+    Output("options-table", "figure"),
+    [Input("ticker", "value"),
+     Input("options-dates-dropdown", "value"),
+     Input("options-kind-dropdown", "value")
+    ],
+)
+def update_figure(ticker, date, kind):
+
+    obj = yf.Ticker(ticker)
+    fig = options_table(stock_object=obj, date=date, kind=kind)
+    #fig.update_layout(
+    #    plot_bgcolor=colors["background"],
+    #    paper_bgcolor=colors["background"],
+    #    font_color=colors["text"],
+    #)
     return fig
 
 

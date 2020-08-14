@@ -75,7 +75,7 @@ def options_table(stock_object, date=None, kind="calls"):
     """
     Returns the info about options of a stock on any given date in tabular format.
     If `date` is not given, it fetches data for the next closest date. If `kind` is
-    not specified, it returns data for calls.
+    not specified or None, it returns data for calls.
 
     Parameters
     ----------
@@ -105,14 +105,11 @@ def options_table(stock_object, date=None, kind="calls"):
             "Invalid date selected. For available dates, try ticker_object.options"
         )
 
-    if kind == "calls":
-        data = stock_object.option_chain(date=date).calls
-
-    elif kind == "puts":
+    if kind == "puts":
         data = stock_object.option_chain(date=date).puts
 
     else:
-        raise KeyError("Invalid kind selected. Only `calls` and `puts` supported.")
+        data = stock_object.option_chain(date=date).calls
 
     data = data[
         [
