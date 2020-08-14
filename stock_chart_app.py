@@ -114,8 +114,10 @@ app.layout = html.Div(
     [dash.dependencies.Input("ticker", "value")],
 )
 def get_possible_dates(ticker):
+
     obj = yf.Ticker(ticker)
     return [{"label": i, "value": i} for i in obj.options]
+
 
 
 @app.callback(
@@ -124,7 +126,10 @@ def get_possible_dates(ticker):
 )
 def get_default_dates(ticker):
     obj = yf.Ticker(ticker)
-    return obj.options[0]
+    try:
+        return obj.options[0]
+    except:
+        return ''
 
 
 @app.callback(

@@ -96,7 +96,10 @@ def options_table(stock_object, date=None, kind="calls"):
         Plotly table figure object
 
     """
-    possible_dates = stock_object.options
+    try:
+        possible_dates = stock_object.options
+    except:
+        possible_dates = []
 
     if date is None:
         date = possible_dates[0]
