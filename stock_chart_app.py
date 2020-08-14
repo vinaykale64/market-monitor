@@ -48,57 +48,79 @@ app.layout = html.Div(
         ),
         html.Div(
             id="hover-data",
-            style={"color": colors["text"], "fontSize": 32, "padding-left": "5%"},
+            style={"color": colors["text"], "fontSize": 32, "padding-left": "5%",},
+        ),
+        html.Div(
+            [html.P("(Hover over the graph to get precise info)")],
+            style={"textAlign": "center"},
         ),
         dcc.Graph(id="stock-chart"),
+        html.H5(
+            "Options Info", style={"textAlign": "center", "color": colors["text"]},
+        ),
         html.Br(),
         html.Div(
-                    [
-                        "Select Options Date",
-                        dcc.Dropdown(id="options-dates-dropdown"),
-                    ],
-                    style={
-                        "width": "20%",
-                        "color": colors["text"],
-                        "textAlign": "left",
-                        "align-items": "center",
-                        "padding-left": "40%",
-                    },
-                ),
+            ["Select Options Date", dcc.Dropdown(id="options-dates-dropdown"),],
+            style={
+                "color": colors["text"],
+                "textAlign": "left",
+                "align-items": "center",
+                "padding-left": "37.5%",
+                "display": "inline-block",
+            },
+        ),
         html.Div(
-                    [
-                        "Select Options Kind",
-                        dcc.Dropdown(
-                            id='options-kind-dropdown',
-                            options=[
-                                {'label': 'Calls', 'value': 'calls'},
-                                {'label': 'Puts', 'value': 'puts'}
-                            ],
-                            value='calls'
-                        )
+            [
+                "Select Options Kind",
+                dcc.Dropdown(
+                    id="options-kind-dropdown",
+                    options=[
+                        {"label": "Calls", "value": "calls"},
+                        {"label": "Puts", "value": "puts"},
                     ],
-                    style={
-                        "width": "20%",
-                        "color": colors["text"],
-                        "textAlign": "left",
-                        "align-items": "center",
-                        "padding-left": "40%",
-                    },
+                    value="calls",
                 ),
+            ],
+            style={
+                "color": colors["text"],
+                "textAlign": "left",
+                "align-items": "center",
+                "padding-left": "5%",
+                "display": "inline-block",
+            },
+        ),
+        html.Br(),
+        html.Br(),
+        html.Div(
+            [html.P("(Scroll on right to view complete table)")],
+            style={"textAlign": "center"},
+        ),
         dcc.Graph(id="options-table"),
+        dcc.Markdown(
+            """
+        Created by [Vinay Kale](https://vinaykale64.github.io/)    
+        Github Repo [Link](https://github.com/vinaykale64/stocks_visualizer)   
+        Tools Used: [Plotly](https://plotly.com/), [Dash](https://plotly.com/dash/), [Heroku](https://www.heroku.com)    
+        Reach out to contribute !
+        """
+        ),
     ],
 )
 
-@app.callback(
-    dash.dependencies.Output('options-dates-dropdown', 'options'),
-    [dash.dependencies.Input('ticker', 'value')])
-def get_possible_dates(ticker):
-    obj = yf.Ticker(ticker)
-    return [{'label': i, 'value': i} for i in obj.options]
 
 @app.callback(
-    dash.dependencies.Output('options-dates-dropdown', 'value'),
-    [dash.dependencies.Input('ticker', 'value')])
+    dash.dependencies.Output("options-dates-dropdown", "options"),
+    [dash.dependencies.Input("ticker", "value")],
+)
+def get_possible_dates(ticker):
+    obj = yf.Ticker(ticker)
+    return [{"label": i, "value": i} for i in obj.options]
+
+
+@app.callback(
+    dash.dependencies.Output("options-dates-dropdown", "value"),
+    [dash.dependencies.Input("ticker", "value")],
+)
 def get_default_dates(ticker):
     obj = yf.Ticker(ticker)
     return obj.options[0]
@@ -122,20 +144,16 @@ def update_figure(ticker, period):
 
 @app.callback(
     Output("options-table", "figure"),
-    [Input("ticker", "value"),
-     Input("options-dates-dropdown", "value"),
-     Input("options-kind-dropdown", "value")
+    [
+        Input("ticker", "value"),
+        Input("options-dates-dropdown", "value"),
+        Input("options-kind-dropdown", "value"),
     ],
 )
-def update_figure(ticker, date, kind):
+def update_table(ticker, date, kind):
 
     obj = yf.Ticker(ticker)
     fig = options_table(stock_object=obj, date=date, kind=kind)
-    #fig.update_layout(
-    #    plot_bgcolor=colors["background"],
-    #    paper_bgcolor=colors["background"],
-    #    font_color=colors["text"],
-    #)
     return fig
 
 

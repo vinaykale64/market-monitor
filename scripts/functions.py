@@ -159,5 +159,11 @@ def options_table(stock_object, date=None, kind="calls"):
             )
         ]
     )
+    table_title = "Stock: {}, Date: {}, Kind: {}".format(
+        stock_object.ticker, date, kind
+    )
+    fig.update_layout(
+        height=800, title_text=table_title,
+    )
 
     return fig
