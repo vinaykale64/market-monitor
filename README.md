@@ -7,3 +7,6 @@ This is a simple app which shows stock and options prices across different time 
 Its updated live and uses the [yfinance](https://pypi.org/project/yfinance/) API in backend.
 
 Feel free to contribute through PR or raise issues.
+
+<img src="images/pic 1.png" width="80%">
+<img src="images/pic 2.png" width="80%">
