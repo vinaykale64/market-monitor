@@ -3,9 +3,7 @@ import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
 
-import json
 import yfinance as yf
-import finviz
 from scripts.functions import stock_chart, options_table, get_news_markdown
 
 external_stylesheets = ["https://codepen.io/chriddyp/pen/bWLwgP.css"]
