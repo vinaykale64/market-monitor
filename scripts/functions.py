@@ -143,6 +143,9 @@ def options_table(stock_object, date=None, kind="calls"):
         "In The Money",
     ]
 
+    price = stock_object.history(period='1d', interval='5m').iloc[[-1]]['Close'][0]
+    data = data.iloc[(data['Strike'] - price).abs().argsort()[:10]].sort_values(by=['Strike']).reset_index(drop=True)
+
     data = data.round(3)
     bold_columns = ["<b>" + x + "</b>" for x in data.columns]
 
@@ -158,7 +161,12 @@ def options_table(stock_object, date=None, kind="calls"):
                     align="center",
                 ),
                 cells=dict(
-                    values=data.T.values.tolist(), fill_color="white", align="center"
+                    values=data.T.values.tolist(),
+                    # fill_color="white",
+                    align="center",
+                    # font=dict(color="white", size=12),
+                    fill=dict(color=[['rgb(127, 255, 0)' if val == True else 'rgb(239, 243, 255)' for val in
+                                      data.T.values.tolist()[-1]]])
                 ),
             )
         ]
@@ -167,7 +175,7 @@ def options_table(stock_object, date=None, kind="calls"):
         stock_object.ticker, date, kind
     )
     fig.update_layout(
-        height=800, title_text=table_title,
+        height=450, title_text=table_title,
     )
 
     return fig
