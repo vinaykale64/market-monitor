@@ -21,6 +21,7 @@ app.layout = html.Div(
             "STOCK INFO VISUALIZER",
             style={"textAlign": "center", "color": colors["text"]},
         ),
+        html.Br(),
         html.Div(
             [
                 "Enter Stock Ticker Symbol ",
@@ -29,38 +30,52 @@ app.layout = html.Div(
             style={"color": colors["text"], "textAlign": "center"},
         ),
         html.Br(),
-        html.Div(
-            [
-                "Select Time Period",
-                dcc.Dropdown(
-                    id="period",
-                    options=[{"label": i, "value": i} for i in period_list],
-                    value="3mo",
-                ),
-            ],
-            style={
-                "width": "20%",
-                "color": colors["text"],
-                "textAlign": "left",
-                "align-items": "center",
-                "padding-left": "40%",
-            },
-        ),
-        html.Div(
-            id="hover-data",
-            style={"color": colors["text"], "fontSize": 28, "padding-left": "5%", "font-weight": "bold"},
-        ),
+        html.Br(),
+
+        html.Div([
+
+            html.Div(
+                id="hover-data",
+                style={"color": colors["text"],
+                       "fontSize": 48,
+                       "padding-left": "5%",
+                       "font-weight": "bold"},
+                className="six columns"
+            ),
+
+            html.Div(
+                [
+                    "Select Time Period",
+                    dcc.Dropdown(
+                        id="period",
+                        options=[{"label": i, "value": i} for i in period_list],
+                        value="3mo",
+                    ),
+                ],
+                style={
+                    "width": "45%",
+                    "color": colors["text"],
+                    "textAlign": "left",
+                    "align-items": "center",
+                    "padding-left": "15%",
+                },
+                className="six columns"
+            ),
+        ], className="row"),
+
+        dcc.Graph(id="stock-chart"),
+
         html.Div(
             [html.P("(Hover over the graph to get precise info)")],
             style={"textAlign": "center"},
         ),
-        dcc.Graph(id="stock-chart"),
-        html.H5(
+        html.Br(),
+        html.H3(
             "Options Info", style={"textAlign": "center", "color": colors["text"]},
         ),
         html.Br(),
         html.Div(
-            ["Select Options Date", dcc.Dropdown(id="options-dates-dropdown"),],
+            ["Select Options Date", dcc.Dropdown(id="options-dates-dropdown")],
             style={
                 "color": colors["text"],
                 "textAlign": "left",
@@ -91,12 +106,8 @@ app.layout = html.Div(
         ),
         html.Br(),
         html.Br(),
-        html.Div(
-            [html.P("(Scroll on right to view complete table)")],
-            style={"textAlign": "center"},
-        ),
         dcc.Graph(id="options-table"),
-        html.H5(
+        html.H3(
             "Recent News", style={"textAlign": "center", "color": colors["text"]},
         ),
         html.Br(),
