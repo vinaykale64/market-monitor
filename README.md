@@ -2,7 +2,10 @@
 
 Welcome to github repo of the [Stock Visualizer App](https://stock-app-vk94.herokuapp.com/).
 
-This is a simple app which shows stock and options prices across different time periods. 
+This is a simple app which 
+- shows stock prices across a chart
+- options info table closest to stock price with color codes
+- recent news about the company
 
 Its updated live and uses the [yfinance](https://pypi.org/project/yfinance/) API in backend.
 
