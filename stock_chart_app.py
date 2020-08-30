@@ -56,8 +56,7 @@ app.layout = html.Div(
                     "width": "45%",
                     "color": colors["text"],
                     "textAlign": "left",
-                    "align-items": "center",
-                    "padding-left": "15%",
+                    "padding-left": "30%",
                 },
                 className="six columns"
             ),
