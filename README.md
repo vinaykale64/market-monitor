@@ -7,7 +7,7 @@ This is a simple app which
 - options info table closest to stock price with color codes
 - recent news about the company
 
-Its updated live and uses the [yfinance](https://pypi.org/project/yfinance/) API in backend.
+Its updated live and uses the [yfinance](https://pypi.org/project/yfinance/), [finviz](https://github.com/mariostoev/finviz) API in backend.
 
 Feel free to contribute through PR or raise issues.
 
