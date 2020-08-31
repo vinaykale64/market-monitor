@@ -22,7 +22,6 @@ app.layout = html.Div(
             style={"textAlign": "center", "color": colors["text"], "fontSize": 36,},
         ),
         html.Br(),
-        html.Br(),
         html.Div(
             [
                 "Enter Stock Ticker Symbol ",
@@ -34,10 +33,6 @@ app.layout = html.Div(
         html.Br(),
 
         dcc.Tabs([
-            dcc.Tab(label='About', children=[
-                html.Br(),
-
-            ]),
             dcc.Tab(label='Stocks', children=[
                 html.Br(),
                 html.Div([
@@ -129,6 +124,9 @@ app.layout = html.Div(
                     id='news-markdown',
                     style={"white-space": "pre", "padding-left": "5%", "fontSize": 18,}
                 ),
+            ]),
+            dcc.Tab(label='About', children=[
+                html.Br(),
             ]),
         ],
             style={"fontSize": 18,}
