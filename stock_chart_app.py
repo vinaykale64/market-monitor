@@ -19,100 +19,119 @@ app.layout = html.Div(
     children=[
         html.H2(
             "STOCK INFO VISUALIZER",
-            style={"textAlign": "center", "color": colors["text"]},
+            style={"textAlign": "center", "color": colors["text"], "fontSize": 36,},
         ),
+        html.Br(),
         html.Br(),
         html.Div(
             [
                 "Enter Stock Ticker Symbol ",
                 dcc.Input(id="ticker", value="AAPL", type="text"),
             ],
-            style={"color": colors["text"], "textAlign": "center"},
+            style={"color": colors["text"], "textAlign": "center", "fontSize": 18,},
         ),
         html.Br(),
         html.Br(),
 
-        html.Div([
+        dcc.Tabs([
+            dcc.Tab(label='About', children=[
+                html.Br(),
 
-            html.Div(
-                id="hover-data",
-                style={"color": colors["text"],
-                       "fontSize": 48,
-                       "padding-left": "5%",
-                       "font-weight": "bold"},
-                className="six columns"
-            ),
+            ]),
+            dcc.Tab(label='Stocks', children=[
+                html.Br(),
+                html.Div([
 
-            html.Div(
-                [
-                    "Select Time Period",
-                    dcc.Dropdown(
-                        id="period",
-                        options=[{"label": i, "value": i} for i in period_list],
-                        value="3mo",
+                    html.Div(
+                        id="hover-data",
+                        style={"color": colors["text"],
+                               "fontSize": 48,
+                               "padding-left": "5%",
+                               "font-weight": "bold"},
+                        className="six columns"
                     ),
-                ],
-                style={
-                    "width": "45%",
-                    "color": colors["text"],
-                    "textAlign": "left",
-                    "padding-left": "30%",
-                },
-                className="six columns"
-            ),
-        ], className="row"),
 
-        dcc.Graph(id="stock-chart"),
+                    html.Div(
+                        [
+                            "Select Time Period",
+                            dcc.Dropdown(
+                                id="period",
+                                options=[{"label": i, "value": i} for i in period_list],
+                                value="3mo",
+                            ),
+                        ],
+                        style={
+                            "width": "45%",
+                            "color": colors["text"],
+                            "textAlign": "left",
+                            "padding-left": "30%",
+                        },
+                        className="six columns"
+                    ),
+                ], className="row"),
 
-        html.Div(
-            [html.P("(Hover over the graph to get precise info)")],
-            style={"textAlign": "center"},
-        ),
-        html.Br(),
-        html.H3(
-            "Options Info", style={"textAlign": "center", "color": colors["text"]},
-        ),
-        html.Br(),
-        html.Div(
-            ["Select Options Date", dcc.Dropdown(id="options-dates-dropdown")],
-            style={
-                "color": colors["text"],
-                "textAlign": "left",
-                "align-items": "center",
-                "padding-left": "37.5%",
-                "display": "inline-block",
-            },
-        ),
-        html.Div(
-            [
-                "Select Options Kind",
-                dcc.Dropdown(
-                    id="options-kind-dropdown",
-                    options=[
-                        {"label": "Calls", "value": "calls"},
-                        {"label": "Puts", "value": "puts"},
-                    ],
-                    value="calls",
+                dcc.Graph(id="stock-chart"),
+
+                html.Div(
+                    [html.P("(Hover over the graph to get precise info)")],
+                    style={"textAlign": "center"},
                 ),
-            ],
-            style={
-                "color": colors["text"],
-                "textAlign": "left",
-                "align-items": "center",
-                "padding-left": "5%",
-                "display": "inline-block",
-            },
-        ),
-        html.Br(),
-        html.Br(),
-        dcc.Graph(id="options-table"),
-        html.H3(
-            "Recent News", style={"textAlign": "center", "color": colors["text"]},
-        ),
-        html.Br(),
-        dcc.Markdown(
-            id='news-markdown',
-            style={"white-space": "pre", "padding-left": "5%"}
+            ]),
+            dcc.Tab(label='Options', children=[
+                html.Br(),
+                html.H3(
+                    "Options Info", style={"textAlign": "center", "color": colors["text"]},
+                ),
+                html.Br(),
+                html.Div(
+                    ["Select Options Date", dcc.Dropdown(id="options-dates-dropdown")],
+                    style={
+                        "color": colors["text"],
+                        "textAlign": "left",
+                        "align-items": "center",
+                        "padding-left": "30%",
+                        "width": "15%",
+                        "display": "inline-block",
+                    },
+                ),
+                html.Div(
+                    [
+                        "Select Options Kind",
+                        dcc.Dropdown(
+                            id="options-kind-dropdown",
+                            options=[
+                                {"label": "Calls", "value": "calls"},
+                                {"label": "Puts", "value": "puts"},
+                            ],
+                            value="calls",
+                        ),
+                    ],
+                    style={
+                        "color": colors["text"],
+                        "textAlign": "left",
+                        "align-items": "center",
+                        "padding-left": "5%",
+                        "width": "15%",
+                        "display": "inline-block",
+                    },
+                ),
+                html.Br(),
+                html.Br(),
+                dcc.Graph(id="options-table"),
+            ]),
+            dcc.Tab(label='News', children=[
+                html.Br(),
+                html.H3(
+                    "Recent News", style={"textAlign": "center", "color": colors["text"]},
+                ),
+                html.Br(),
+                dcc.Markdown(
+                    id='news-markdown',
+                    style={"white-space": "pre", "padding-left": "5%", "fontSize": 18,}
+                ),
+            ]),
+        ],
+            style={"fontSize": 18,}
         ),
         html.Br(),
         dcc.Markdown(
