@@ -1,5 +1,6 @@
 import plotly.graph_objects as go
 import finviz
+import yfinance as yf
 
 
 def stock_chart(stock_object, period):
@@ -210,3 +211,4 @@ def get_news_markdown(ticker_symbol, count):
         joined_str += str(i)+'. [' + title + '](' + url + ')\n'
         i += 1
     return joined_str
+

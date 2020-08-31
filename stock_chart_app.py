@@ -122,19 +122,15 @@ app.layout = html.Div(
                 html.Br(),
                 dcc.Markdown(
                     id='news-markdown',
-                    style={"white-space": "pre", "padding-left": "5%", "fontSize": 18,}
+                    style={"white-space": "pre", "padding-left": "5%", "width": "15%", "fontSize": 18,}
                 ),
             ]),
-            dcc.Tab(label='About', children=[
-                html.Br(),
-            ]),
-        ],
-            style={"fontSize": 18,}
+        ], style={"fontSize": 18,}
         ),
         html.Br(),
         dcc.Markdown(
         """
-        [Github Repo](https://github.com/vinaykale64/stocks_visualizer). Feel free to contribute !
+        [Github Repo](https://github.com/vinaykale64/stocks_visualizer) Reach out to contribute !
         """,
             style={"textAlign": "center"}
         ),
@@ -202,7 +198,6 @@ def update_table(ticker, date, kind):
                Input("stock-chart", "figure"),
                Input("ticker", "value")]
              )
-
 def display_hover_data(hoverData, figure, ticker):
 
     obj = yf.Ticker(ticker)
@@ -215,9 +210,9 @@ def display_hover_data(hoverData, figure, ticker):
 @app.callback(Output("news-markdown", "children"),
               [Input("ticker", "value")]
              )
-
 def return_news(ticker):
-    return get_news_markdown(ticker, 10)
+    return get_news_markdown(ticker, 15)
+
 
 
 if __name__ == "__main__":
