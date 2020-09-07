@@ -11,11 +11,11 @@ Its updated live and uses the [yfinance](https://pypi.org/project/yfinance/), [f
 
 Feel free to contribute through PR or raise issues.
 
-Stocks
+## Stocks
 <img src="images/pic_1.png" width="80%">
 
-Options
+## Options
 <img src="images/pic_2.png" width="80%">
 
-News
+## News
 <img src="images/pic_3.png" width="80%">
