@@ -32,7 +32,7 @@ app.layout = html.Div(
              ],
             style={"color": colors["text"],
                    "textAlign": "center",
-                   "fontSize": 18,
+                   "fontSize": 14,
                    "width": '30%',
                    "padding-left": "35%"}
         ),
