@@ -2,6 +2,8 @@ import dash
 import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
+from dash.exceptions import PreventUpdate
+import pickle
 
 import yfinance as yf
 from scripts.functions import stock_chart, options_table, get_news_markdown
@@ -13,6 +15,7 @@ server = app.server
 
 period_list = ["1d", "1mo", "3mo", "1y", "2y", "5y", "10y", "ytd", "max"]
 colors = {"background": "#FFFFFF", "text": "#000000"}
+ticker_options = pickle.load(open( "dropdown_options.p", "rb" ) )
 
 app.layout = html.Div(
     style={"backgroundColor": colors["background"]},
@@ -22,13 +25,18 @@ app.layout = html.Div(
             style={"textAlign": "center", "color": colors["text"], "fontSize": 36,},
         ),
         html.Br(),
-        html.Div(
-            [
-                "Enter Stock Ticker Symbol ",
-                dcc.Input(id="ticker", value="AAPL", type="text"),
-            ],
-            style={"color": colors["text"], "textAlign": "center", "fontSize": 18,},
+
+        html.Label(
+            ["Search for a company to start",
+             dcc.Dropdown(id="my-dynamic-dropdown", placeholder="Apple Inc. (AAPL)", value="AAPL")
+             ],
+            style={"color": colors["text"],
+                   "textAlign": "center",
+                   "fontSize": 18,
+                   "width": '30%',
+                   "padding-left": "35%"}
         ),
+
         html.Br(),
         html.Br(),
 
@@ -74,24 +82,21 @@ app.layout = html.Div(
             ]),
             dcc.Tab(label='Options', children=[
                 html.Br(),
-                html.H3(
-                    "Options Info", style={"textAlign": "center", "color": colors["text"]},
-                ),
                 html.Br(),
                 html.Div(
-                    ["Select Options Date", dcc.Dropdown(id="options-dates-dropdown")],
+                    ["Select Date of Expiry", dcc.Dropdown(id="options-dates-dropdown")],
                     style={
                         "color": colors["text"],
                         "textAlign": "left",
                         "align-items": "center",
-                        "padding-left": "30%",
+                        "padding-left": "32.5%",
                         "width": "15%",
                         "display": "inline-block",
                     },
                 ),
                 html.Div(
                     [
-                        "Select Options Kind",
+                        "Select Type",
                         dcc.Dropdown(
                             id="options-kind-dropdown",
                             options=[
@@ -114,11 +119,8 @@ app.layout = html.Div(
                 html.Br(),
                 dcc.Graph(id="options-table"),
             ]),
-            dcc.Tab(label='News', children=[
+            dcc.Tab(label='Latest News', children=[
                 html.Br(),
-                html.H3(
-                    "Recent News", style={"textAlign": "center", "color": colors["text"]},
-                ),
                 html.Br(),
                 dcc.Markdown(
                     id='news-markdown',
@@ -140,8 +142,18 @@ app.layout = html.Div(
 
 
 @app.callback(
+    dash.dependencies.Output("my-dynamic-dropdown", "options"),
+    [dash.dependencies.Input("my-dynamic-dropdown", "search_value")],
+)
+def update_options(search_value):
+    if not search_value:
+        raise PreventUpdate
+    return [o for o in ticker_options if search_value in o["label"]]
+
+
+@app.callback(
     dash.dependencies.Output("options-dates-dropdown", "options"),
-    [dash.dependencies.Input("ticker", "value")],
+    [Input("my-dynamic-dropdown", "value")],
 )
 def get_possible_dates(ticker):
 
@@ -152,7 +164,7 @@ def get_possible_dates(ticker):
 
 @app.callback(
     dash.dependencies.Output("options-dates-dropdown", "value"),
-    [dash.dependencies.Input("ticker", "value")],
+    [Input("my-dynamic-dropdown", "value")],
 )
 def get_default_dates(ticker):
     obj = yf.Ticker(ticker)
@@ -164,7 +176,7 @@ def get_default_dates(ticker):
 
 @app.callback(
     Output("stock-chart", "figure"),
-    [Input("ticker", "value"), Input("period", "value")],
+    [Input("my-dynamic-dropdown", "value"), Input("period", "value")],
 )
 def update_figure(ticker, period):
 
@@ -181,7 +193,7 @@ def update_figure(ticker, period):
 @app.callback(
     Output("options-table", "figure"),
     [
-        Input("ticker", "value"),
+        Input("my-dynamic-dropdown", "value"),
         Input("options-dates-dropdown", "value"),
         Input("options-kind-dropdown", "value"),
     ],
@@ -196,7 +208,7 @@ def update_table(ticker, date, kind):
 @app.callback(Output("hover-data", "children"),
               [Input("stock-chart", "hoverData"),
                Input("stock-chart", "figure"),
-               Input("ticker", "value")]
+               Input("my-dynamic-dropdown", "value")]
              )
 def display_hover_data(hoverData, figure, ticker):
 
@@ -208,7 +220,7 @@ def display_hover_data(hoverData, figure, ticker):
 
 
 @app.callback(Output("news-markdown", "children"),
-              [Input("ticker", "value")]
+              [Input("my-dynamic-dropdown", "value")]
              )
 def return_news(ticker):
     return get_news_markdown(ticker, 15)
