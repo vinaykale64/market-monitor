@@ -1,11 +1,12 @@
-# stocks_visualizer
+# market-monitor
 
-Welcome to github repo of the [Market Monitor App](https://stock-app-vk94.herokuapp.com/). Created completely in Python.
+Welcome to github repo of the [market-monitor app](https://stock-app-vk94.herokuapp.com/). Created completely in Python.
 
 This is a simple app which 
-- shows stock prices across a chart
-- options info table closest to stock price with color codes
-- recent news about the company
+- Let's user choose a stock/company/ETF from NYSE and NASDAQ exchanges
+- shows prices across a chart with customizable time periods (1d/1mo/3mo/1y/5y)
+- shows ptions info table closest to stock price with color codes (green-ITM, white-OTM)
+- any recent news about the underlying organization
 
 Its updated live and uses the [yfinance](https://pypi.org/project/yfinance/), [finviz](https://github.com/mariostoev/finviz) API in backend.
 
