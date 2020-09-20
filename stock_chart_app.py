@@ -21,8 +21,8 @@ app.layout = html.Div(
     style={"backgroundColor": colors["background"]},
     children=[
         html.H2(
-            "STOCK INFO VISUALIZER",
-            style={"textAlign": "center", "color": colors["text"], "fontSize": 36,},
+            "market monitor",
+            style={"textAlign": "center", "color": colors["text"], "fontSize": 42, "font-weight": "bold"},
         ),
         html.Br(),
 
@@ -133,7 +133,7 @@ app.layout = html.Div(
                     style={"white-space": "pre", "padding-left": "5%", "width": "15%", "fontSize": 18,}
                 ),
             ]),
-        ], style={"fontSize": 18,}
+        ], style={"fontSize": 24, "font-weight": "bold"}
         ),
         html.Br(),
         dcc.Markdown(
