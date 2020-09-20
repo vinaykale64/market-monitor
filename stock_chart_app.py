@@ -75,6 +75,10 @@ app.layout = html.Div(
 
                 dcc.Graph(
                     id='stock-chart',
+                    style={
+                        "padding-left": "5%",
+                        "padding-right": "5%"
+                    }
                 ),
 
                 html.Div(
@@ -185,7 +189,7 @@ def update_figure(ticker, period):
     obj = yf.Ticker(ticker)
     fig = stock_chart(stock_object=obj, period=period)
     fig.update_layout(
-        height=700
+        height=600
     )
     return fig
 
