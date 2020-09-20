@@ -1,6 +1,6 @@
 # stocks_visualizer
 
-Welcome to github repo of the [Stock Visualizer App](https://stock-app-vk94.herokuapp.com/).
+Welcome to github repo of the [Market Monitor App](https://stock-app-vk94.herokuapp.com/). Created completely in Python.
 
 This is a simple app which 
 - shows stock prices across a chart
