@@ -73,7 +73,9 @@ app.layout = html.Div(
                     ),
                 ], className="row"),
 
-                dcc.Graph(id="stock-chart"),
+                dcc.Graph(
+                    id='stock-chart',
+                ),
 
                 html.Div(
                     [html.P("(Hover over the graph to get precise info)")],
@@ -183,9 +185,7 @@ def update_figure(ticker, period):
     obj = yf.Ticker(ticker)
     fig = stock_chart(stock_object=obj, period=period)
     fig.update_layout(
-        plot_bgcolor=colors["background"],
-        paper_bgcolor=colors["background"],
-        font_color=colors["text"],
+        height=700
     )
     return fig
 

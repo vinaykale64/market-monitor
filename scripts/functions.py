@@ -1,7 +1,5 @@
 import plotly.graph_objects as go
 import finviz
-import yfinance as yf
-
 
 def stock_chart(stock_object, period):
     """
@@ -39,7 +37,6 @@ def stock_chart(stock_object, period):
         interval = "1d"
 
     data = stock_object.history(period=period, interval=interval)
-    plot_title = "Stock: {}, Time Period: {}".format(stock_object.ticker, period)
 
     fig = go.Figure(
         data=go.Scatter(
@@ -62,11 +59,9 @@ def stock_chart(stock_object, period):
     )
 
     fig.update_layout(
-        title=plot_title,
         hovermode="x",
-        yaxis_title="Closing Price",
-        template="plotly_dark",
-        xaxis_showgrid=False,
+        template="presentation",
+        #xaxis_showgrid=False,
         yaxis_showgrid=False,
     )
 
