@@ -132,7 +132,7 @@ app.layout = html.Div(
         html.Br(),
         dcc.Markdown(
         """
-        [Github Repo](https://github.com/vinaykale64/stocks_visualizer) Reach out to contribute !
+        Created in Python. [Github Repo.](https://github.com/vinaykale64/stocks_visualizer)
         """,
             style={"textAlign": "center"}
         ),
