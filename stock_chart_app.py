@@ -32,7 +32,7 @@ app.layout = html.Div(
              ],
             style={"color": colors["text"],
                    "textAlign": "center",
-                   "fontSize": 14,
+                   "fontSize": 18,
                    "width": '30%',
                    "padding-left": "35%"}
         ),
@@ -123,7 +123,7 @@ app.layout = html.Div(
                 ),
                 html.Br(),
                 html.Br(),
-                dcc.Graph(id="options-table"),
+                dcc.Graph(id="options-table", style={"padding-left": "5%", "padding-right": "5%"}),
             ]),
             dcc.Tab(label='Latest News', children=[
                 html.Br(),
@@ -133,7 +133,7 @@ app.layout = html.Div(
                     style={"white-space": "pre", "padding-left": "5%", "width": "15%", "fontSize": 18,}
                 ),
             ]),
-        ], style={"fontSize": 24, "font-weight": "bold"}
+        ], style={"fontSize": 24}
         ),
         html.Br(),
         dcc.Markdown(
