@@ -15,7 +15,7 @@ This is a dash app which
 
 Its updated live and uses the [yfinance](https://pypi.org/project/yfinance/), [finviz](https://github.com/mariostoev/finviz) API in backend.
 
-Feel free to contribute through PR or raise issues. Leave a star if you like the work :)
+If you want to learn more, please check out the [Developer Guide](https://github.com/vinaykale64/market-monitor/blob/master/developer_guide.md). Feel free to contribute through PR or raise issues. Leave a star if you like the work :)
 
 ## Stocks
 <img src="images/pic_1.png" width="80%">
