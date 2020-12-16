@@ -4,6 +4,17 @@ This is a short developer guide for anybody planning to develop an app like mark
 The app is pretty light-weight with 2 core files containing most of the code. Instead of restating 
 everything, I have added links where there is better info available. Let's dive in.
 
+## Financial APIs
+
+The live data that powers the app is coming from [Yahoo Finance](https://finance.yahoo.com/) and 
+[Finviz](https://finviz.com/) platforms. Instead of webscraping,
+fortunately there exist python packages which provide access to the data with minimal or no setup and intuitive design.
+Getting familiar with their functions will make it easy to understand the functions written on top of it.
+
+* `yfinance` : [package](https://pypi.org/project/yfinance/), [documentation](https://aroussi.com/post/python-yahoo-finance)
+* `finviz` : [package](https://pypi.org/project/finviz/), [documentation](https://github.com/mariostoev/finviz/blob/master/README.rst)
+
+
 ## Functions
 
 There are 3 core functions that play with the APIs to generate content for the 3 main pages.
