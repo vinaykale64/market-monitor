@@ -27,7 +27,7 @@ app.layout = html.Div(
         html.Br(),
 
         html.Label(
-            ["Search for a company to start",
+            ["Search for a company to start (Use CAPS for ticker e.g. AAPL)",
              dcc.Dropdown(id="my-dynamic-dropdown", placeholder="Apple Inc. (AAPL)", value="AAPL")
              ],
             style={"color": colors["text"],
