@@ -42,4 +42,4 @@ urllib3==1.25.10
 user-agent==0.1.9
 Werkzeug==1.0.1
 yarl==1.5.1
-git+git://github.com/vinaykale64/yfinance.git#egg=yfinance
+yfinance==0.1.64

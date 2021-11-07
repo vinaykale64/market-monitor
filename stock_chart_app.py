@@ -220,7 +220,7 @@ def display_hover_data(hoverData, figure, ticker):
     if hoverData is None:
         return obj.ticker + ' ' + str(figure['data'][0]['y'][-1])
     else:
-        return "{} {}".format(obj.ticker, hoverData["points"][0]["y"])
+        return "{} {}".format(obj.ticker, round(hoverData["points"][0]["y"],2))
 
 
 @app.callback(Output("news-markdown", "children"),
